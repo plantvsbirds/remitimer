@@ -24,16 +24,16 @@ def display(sec)
 	toilet(mi+":"+se,"mono12","gay")
 end
 
-startSec = Time.now.to_i
-endSec = startSec + ARGV.shift.to_i
-prevSec = startSec
-while (Time.now.to_i != endSec)
-	curSec = Time.now.to_i
-	if (prevSec != curSec)
+startTime = Time.now
+endTime = startTime + ARGV.shift.to_i
+prevTime = startTime - 1
+while (Time.now <= endTime)
+	curTime = Time.now
+	if (curTime - prevTime >= 1)
 		#puts `clear` here flashes the terminal,
 		#which I don't like.
-		puts display(endSec - curSec)
-		prevSec = Time.now.to_i
+		puts display((endTime - curTime).to_i)
+		prevTime += 1
 		msg = ARGV.join(' ')
 		toilet('Timer - '+msg,'future',"metal")
 		puts "\n"*7
