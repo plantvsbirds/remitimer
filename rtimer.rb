@@ -4,17 +4,13 @@ def toilet(msg,font,color)
   puts `toilet -F #{color} -f #{font} '#{msg}'`
 end
 
-def check()
-	abort if `toilet ''`.include?('not installed')
-	if ARGV.empty?
-		toilet('Hello!','mono12','gay')
-		toilet('This is the asshole who wrote this stuff','future','metal')
-		puts 'Usage: rtime SECONDS [MESSAGE] ...'
-		exit
-	end
+abort if `which toilet`.empty?
+if ARGV.empty?
+	toilet('Hello!','mono12','gay')
+	toilet('This is the asshole who wrote this stuff','future','metal')
+	puts 'Usage: rtime SECONDS [MESSAGE] ...'
+	exit
 end
-
-check()
 
 startTime = Time.now
 endTime = startTime + ARGV.shift.to_i
