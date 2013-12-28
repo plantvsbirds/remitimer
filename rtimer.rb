@@ -5,11 +5,11 @@ def toilet(msg,font,color)
 end
 
 def check()
-	abort if `toilet haha`.include?('not installed')
+	abort if `toilet ''`.include?('not installed')
 	if ARGV.empty?
 		toilet('Hello!','mono12','gay')
 		toilet('This is the asshole who wrote this stuff','future','metal')
-		puts 'Usage: rtime [seconds] [name of timer]'
+		puts 'Usage: rtime SECONDS [MESSAGE] ...'
 		exit
 	end
 end
@@ -20,8 +20,8 @@ startTime = Time.now
 endTime = startTime + ARGV.shift.to_i
 prevTime = startTime - 1
 
-msg = ARGV.join(' ')
-msg = `toilet -F metal -f future 'Timer - #{msg}'`
+msg = ARGV.empty? ? '' : "Timer - #{ARGV.join(' ')}"
+msg = `toilet -F metal -f future '#{msg}'`
 msg += "\n"*7
 
 loop do
