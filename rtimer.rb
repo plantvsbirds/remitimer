@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 def toilet(msg,font,color)
-  puts `toilet -F #{color} -f #{font} #{msg}`
+  puts `toilet -F #{color} -f #{font} '#{msg}'`
 end
 
 def check()
@@ -19,17 +19,21 @@ check()
 startTime = Time.now
 endTime = startTime + ARGV.shift.to_i
 prevTime = startTime - 1
-while (Time.now <= endTime)
+
+msg = ARGV.join(' ')
+msg = `toilet -F metal -f future 'Timer - #{msg}'`
+msg += "\n"*7
+
+loop do
 	curTime = Time.now
+	break if curTime > endTime
 	if (curTime - prevTime >= 1)
 		#puts `clear` here flashes the terminal,
 		#which I don't like.
 		clock = (endTime - curTime.to_f).strftime('%M:%S')
 		toilet(clock,"mono12","gay")
+		puts msg
 		prevTime += 1
-		msg = ARGV.join(' ')
-		toilet('Timer - '+msg,'future',"metal")
-		puts "\n"*7
 	end
 end
 puts `clear`
