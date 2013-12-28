@@ -6,7 +6,7 @@ def check()
 	exit if (eval("str = `toilet haha`").to_s.include?('not installed'))
 	if (ARGV.length == 0)
 		puts toilet('Hello!','mono12','gay')
-		puts toilet('This is Henry','future','metal')
+		puts toilet('This is the asshole who wrote this stuff','future','metal')
 		puts 'Usage: rtime [seconds] [name of timer]'
 		exit
 	end
@@ -41,5 +41,5 @@ end
 		puts `clear`
 		puts "\n\n\n\n\n\n\n"
 puts toilet("DONE","mono12","gay")
-puts toilet("HAVE A NICE DAY, HENRY","future","metal")
+puts toilet("HAVE A NICE DAY!!","future","metal")
 		puts "\n\n\n\n\n\n\n"
