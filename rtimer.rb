@@ -16,14 +16,6 @@ end
 
 check()
 
-def display(sec)
-	mi = (sec / 60).to_s
-	se = (sec % 60).to_s
-	mi = '0' + mi while (mi.length < 2)
-	se = '0' + se while (se.length < 2)
-	toilet(mi+":"+se,"mono12","gay")
-end
-
 startTime = Time.now
 endTime = startTime + ARGV.shift.to_i
 prevTime = startTime - 1
@@ -32,7 +24,8 @@ while (Time.now <= endTime)
 	if (curTime - prevTime >= 1)
 		#puts `clear` here flashes the terminal,
 		#which I don't like.
-		puts display((endTime - curTime).to_i)
+		clock = (endTime - curTime.to_f).strftime('%M:%S')
+		toilet(clock,"mono12","gay")
 		prevTime += 1
 		msg = ARGV.join(' ')
 		toilet('Timer - '+msg,'future',"metal")
