@@ -12,9 +12,8 @@ if ARGV.empty?
 	exit
 end
 
-startTime = Time.now
-endTime = startTime + ARGV.shift.to_i
-prevTime = startTime - 1
+remTime = ARGV.shift.to_f
+endTime = Time.now + remTime
 
 msg = ARGV.empty? ? '' : "Timer - #{ARGV.join(' ')}"
 msg = `toilet -F metal -f future '#{msg}'`
@@ -23,13 +22,13 @@ msg += "\n"*7
 loop do
 	curTime = Time.now
 	break if curTime > endTime
-	if (curTime - prevTime >= 1)
+	if (endTime - curTime < remTime)
 		#puts `clear` here flashes the terminal,
 		#which I don't like.
-		clock = (endTime - curTime.to_f).strftime('%M:%S')
+		clock = (endTime - curTime.to_f + 1).strftime('%M:%S')
 		toilet(clock,"mono12","gay")
 		puts msg
-		prevTime += 1
+		remTime -= 1
 	end
 end
 
