@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-def toilet(disp,font,color)
-  puts `toilet -F #{color} -f #{font} #{disp}`
+def toilet(msg,font,color)
+  puts `toilet -F #{color} -f #{font} #{msg}`
 end
 
 def check()
@@ -24,27 +24,23 @@ def display(sec)
 	toilet(mi+":"+se,"mono12","gay")
 end
 
-startSec = Time.new().to_i
-endSec = startSec + ARGV[0].to_i
+startSec = Time.now.to_i
+endSec = startSec + ARGV.shift.to_i
 prevSec = startSec
-while (Time.new().to_i != endSec)
-	curTime = Time.new()
-	curSec = curTime.to_i
+while (Time.now.to_i != endSec)
+	curSec = Time.now.to_i
 	if (prevSec != curSec)
 		#puts `clear` here flashes the terminal,
-		#Which i dont like.
+		#which I don't like.
 		puts display(endSec - curSec)
-		prevSec = Time.new().to_i
-		msg = ""
-		ARGV.each_with_index {|stuff,id|
-				msg += stuff+' ' if(id != 0)
-		}
+		prevSec = Time.now.to_i
+		msg = ARGV.join(' ')
 		toilet('Timer - '+msg,'future',"metal")
-		puts "\n\n\n\n\n\n\n"
+		puts "\n"*7
 	end
 end
 puts `clear`
-puts "\n\n\n\n\n\n\n"
+puts "\n"*7
 toilet("DONE","mono12","gay")
 toilet("HAVE A NICE DAY!!","future","metal")
-puts "\n\n\n\n\n\n\n"
+puts "\n"*7
