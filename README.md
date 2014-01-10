@@ -1,4 +1,6 @@
-rtimer
+remitimer
 ======
+##Ruby-written Extrodinary Moteley Illustrated TIMER
+```Well, I am just too boring to put this shit onto github, since the rest of my work were contributed to MyOILife```  
 
-Boring ruby timer relying toilet.
+This is a Boring ruby timer relying toilet.
