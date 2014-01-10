@@ -1,45 +1,39 @@
 #!/usr/bin/env ruby
-def toilet(disp,font,color)
-    eval("str = `toilet -F "+color+" -f "+font+" "+disp.to_s+"`")
+
+def toilet(msg,font,color)
+  puts `toilet -F #{color} -f #{font} '#{msg}'`
 end
-def check()
-	exit if (eval("str = `toilet haha`").to_s.include?('not installed'))
-	if (ARGV.length == 0)
-		puts toilet('Hello!','mono12','gay')
-		puts toilet('This is the asshole who wrote this stuff','future','metal')
-		puts 'Usage: rtime [seconds] [name of timer]'
-		exit
-	end
+
+abort if `which toilet`.empty?
+if ARGV.empty?
+	toilet('Hello!','mono12','gay')
+	toilet('This is the plantvsbirds who wrote this stuff','future','metal')
+	puts 'Usage: rtime SECONDS [MESSAGE] ...'
+	exit
 end
-check()
-def display(sec)
-	mi = (sec / 60).to_s
-	se = (sec % 60).to_s
-	mi = '0' + mi while (mi.length < 2)
-	se = '0' + se while (se.length < 2)
-	puts toilet(mi+":"+se,"mono12","gay")
-end
-startSec = Time.new().to_i
-endSec = startSec + ARGV[0].to_i
-prevSec = startSec
-while (Time.new().to_i != endSec)
-	curTime = Time.new()
-	curSec = curTime.to_i
-	if (prevSec != curSec)
+
+remTime = ARGV.shift.to_f
+endTime = Time.now + remTime
+
+msg = ARGV.empty? ? '' : "Timer - #{ARGV.join(' ')}"
+msg = `toilet -F metal -f future '#{msg}'`
+msg += "\n"*7
+
+loop do
+	curTime = Time.now
+	break if curTime > endTime
+	if (endTime - curTime < remTime)
 		#puts `clear` here flashes the terminal,
-		#Which i dont like.
-		puts display(endSec - curSec) 
-		prevSec = Time.new().to_i
-		msg = ""
-		ARGV.each_with_index {|stuff,id| 
-				msg += stuff+' ' if(id != 0)
-		}
-		puts toilet('Timer - '+msg,'future',"metal")
-		puts "\n\n\n\n\n\n\n"
+		#which I don't like.
+		clock = (endTime - curTime.to_f + 1).strftime('%M:%S')
+		toilet(clock,"mono12","gay")
+		puts msg
+		remTime -= 1
 	end
 end
-		puts `clear`
-		puts "\n\n\n\n\n\n\n"
-puts toilet("DONE","mono12","gay")
-puts toilet("HAVE A NICE DAY!!","future","metal")
-		puts "\n\n\n\n\n\n\n"
+
+puts `clear`
+puts "\n"*7
+toilet("DONE","mono12","gay")
+toilet("HAVE A NICE DAY!!","future","metal")
+puts "\n"*7
